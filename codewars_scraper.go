@@ -12,8 +12,10 @@ import (
 )
 
 type Solution struct {
-	Kyu  string `json:"kyu"`
-	Code string `json:"code"`
+	Kyu      string `json:"kyu"`
+	KataLink string `json:"kataLink"`
+	Kata     string `json:"kata"`
+	Code     string `json:"code"`
 }
 
 func main() {
@@ -33,11 +35,15 @@ func main() {
 
 	collector.OnHTML(".list-item-solutions", func(e *colly.HTMLElement) {
 		code := e.ChildText(".mb-5px")
+		kata := e.ChildText(".item-title a")
+		kataLink := e.ChildAttr("a", "href")
 		kyu := e.ChildText(".inner-small-hex")
 
 		solution := Solution{
-			Code: code,
-			Kyu:  kyu,
+			Code:     code,
+			Kyu:      kyu,
+			KataLink: kataLink,
+			Kata:     kata,
 		}
 
 		allSolutions = append(allSolutions, solution)
