@@ -32,7 +32,7 @@ func main() {
 	cookies := make([]*http.Cookie, 0)
 	cookies = append(cookies, cookie)
 
-	collector.SetCookies("https://www.codewars.com/users/sign_in", cookies)
+	collector.SetCookies("https://www.codewars.com", cookies)
 
 	collector.OnHTML(".list-item-solutions", func(e *colly.HTMLElement) {
 		kataTitle := e.ChildText(".item-title a")
