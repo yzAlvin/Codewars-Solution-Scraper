@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gocolly/colly/v2"
+	"github.com/spf13/viper"
 )
 
 type Kata struct {
@@ -20,13 +20,27 @@ type Kata struct {
 }
 
 func main() {
+	viper.SetConfigName("config") // name of config file (without extension)
+	viper.SetConfigType("yaml")   // REQUIRED if the config file does not have the extension in the name
+	viper.AddConfigPath(".")      // optionally look for config in the working directory
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			panic(fmt.Errorf("config file not found"))
+		} else {
+			panic(fmt.Errorf("fatal error config file: %w", err))
+		}
+	}
+
+	username := viper.GetString("username")
+	session_id := viper.GetString("session_id")
+
 	allKatas := make([]Kata, 0)
 
 	collector := colly.NewCollector()
 
 	cookie := &http.Cookie{
 		Name:  "_session_id",
-		Value: os.Getenv("session_secret"),
+		Value: session_id,
 	}
 
 	cookies := make([]*http.Cookie, 0)
@@ -72,7 +86,8 @@ func main() {
 		fmt.Println("Visiting", request.URL.String())
 	})
 
-	collector.Visit("https://www.codewars.com/users/yzAlvin/completed_solutions")
+	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions", username)
+	collector.Visit(url)
 
 	writeJSON(allKatas)
 }
