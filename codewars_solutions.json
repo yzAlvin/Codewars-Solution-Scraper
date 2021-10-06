@@ -3,90 +3,150 @@
   "kyu": "8 kyu",
   "kataLink": "/kata/53da3dbb4a5168369a0000fe",
   "kata": "Even or Odd",
-  "code": "using System;\n\nnamespace Solution\n{\n  public class SolutionClass\n  {\n    public static string EvenOrOdd(int number)\n    {\n      return number % 2 == 0 ? \"Even\" : \"Odd\";\n    }\n  }\n}object Sol {\n\n  def evenOrOdd(number: Int): String = {\n    if (number % 2 == 0) \"Even\" else \"Odd\"\n  }\n}"
+  "solution": [
+   {
+    "code": "using System;\n\nnamespace Solution\n{\n  public class SolutionClass\n  {\n    public static string EvenOrOdd(int number)\n    {\n      return number % 2 == 0 ? \"Even\" : \"Odd\";\n    }\n  }\n}object Sol {\n\n  def evenOrOdd(number: Int): String = {\n    if (number % 2 == 0) \"Even\" else \"Odd\"\n  }\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/50654ddff44f800200000004",
   "kata": "Multiply",
-  "code": "public class CustomMath {\n    public static int multiply(int a, int b) {\n        return a*b;\n    }\n}public class CustomMath {\n    public static int multiply(int a, int b) {\n        return a * b;\n    }\n}def multiply(a,b):\n    return a * bdef multiply(a, b):\n  return a * bobject Multiply {\n  def multiply(a: Int, b: Int) = a * b\n}package multiply\n\nfunc Multiply(a, b int) int {\n  return a * b\n}"
+  "solution": [
+   {
+    "code": "public class CustomMath {\n    public static int multiply(int a, int b) {\n        return a*b;\n    }\n}public class CustomMath {\n    public static int multiply(int a, int b) {\n        return a * b;\n    }\n}def multiply(a,b):\n    return a * bdef multiply(a, b):\n  return a * bobject Multiply {\n  def multiply(a: Int, b: Int) = a * b\n}package multiply\n\nfunc Multiply(a, b int) int {\n  return a * b\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/5715eaedb436cf5606000381",
   "kata": "Sum of positive",
-  "code": "using System;\nusing System.Linq;\n\npublic class Kata\n{\n  public static int PositiveSum(int[] arr) =\u003e \n    arr\n    .Where(number =\u003e number \u003e 0)\n    .Sum();\n}\nusing System;\nusing System.Linq;\n\npublic class Kata\n{\n  public static int PositiveSum(int[] arr) =\u003e arr.Where(n =\u003e n \u003e 0).Sum();\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Linq;\n\npublic class Kata\n{\n  public static int PositiveSum(int[] arr) =\u003e \n    arr\n    .Where(number =\u003e number \u003e 0)\n    .Sum();\n}\nusing System;\nusing System.Linq;\n\npublic class Kata\n{\n  public static int PositiveSum(int[] arr) =\u003e arr.Where(n =\u003e n \u003e 0).Sum();\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/515e271a311df0350d00000f",
   "kata": "Square(n) Sum",
-  "code": "using System.Linq;\n\npublic static class Kata\n{\n  public static int SquareSum(int[] n) =\u003e\n    n.Select(x =\u003e x * x).Sum();\n}using System.Linq;\npublic static class Kata\n{\n  public static int SquareSum(int[] n) =\u003e n.Select(d =\u003e d * d).Sum();\n}"
+  "solution": [
+   {
+    "code": "using System.Linq;\n\npublic static class Kata\n{\n  public static int SquareSum(int[] n) =\u003e\n    n.Select(x =\u003e x * x).Sum();\n}using System.Linq;\npublic static class Kata\n{\n  public static int SquareSum(int[] n) =\u003e n.Select(d =\u003e d * d).Sum();\n}"
+   }
+  ]
  },
  {
   "kyu": "4 kyu",
   "kataLink": "/kata/51c8e37cee245da6b40000bd",
   "kata": "Strip Comments",
-  "code": "using System.Linq;\nusing System;\npublic class StripCommentsSolution\n{\n    public static string StripComments(string text, string[] commentSymbols) =\u003e\n       String\n      .Join(\"\\n\", text.Split(\"\\n\")\n      .Select(x =\u003e x.Split(commentSymbols, StringSplitOptions.None)[0]\n      .TrimEnd(' ')));\n}using System.Linq;\nusing System.Text.RegularExpressions;\npublic class StripCommentsSolution\n{\n    public static string StripComments(string text, string[] commentSymbols)\n    {\n        var lines = text.Split(\"\\n\");\n\n        foreach (var symbol in commentSymbols)\n            for (var i = 0; i \u003c lines.Length; i++)\n            {\n                var pos = lines[i].IndexOf(symbol);\n                if (pos \u003e -1) lines[i] = lines[i].Remove(pos);\n                lines[i] = lines[i].TrimEnd();\n            }\n\n        return string.Join(\"\\n\", lines);\n    }\n}"
+  "solution": [
+   {
+    "code": "using System.Linq;\nusing System;\npublic class StripCommentsSolution\n{\n    public static string StripComments(string text, string[] commentSymbols) =\u003e\n       String\n      .Join(\"\\n\", text.Split(\"\\n\")\n      .Select(x =\u003e x.Split(commentSymbols, StringSplitOptions.None)[0]\n      .TrimEnd(' ')));\n}using System.Linq;\nusing System.Text.RegularExpressions;\npublic class StripCommentsSolution\n{\n    public static string StripComments(string text, string[] commentSymbols)\n    {\n        var lines = text.Split(\"\\n\");\n\n        foreach (var symbol in commentSymbols)\n            for (var i = 0; i \u003c lines.Length; i++)\n            {\n                var pos = lines[i].IndexOf(symbol);\n                if (pos \u003e -1) lines[i] = lines[i].Remove(pos);\n                lines[i] = lines[i].TrimEnd();\n            }\n\n        return string.Join(\"\\n\", lines);\n    }\n}"
+   }
+  ]
  },
  {
   "kyu": "3 kyu",
   "kataLink": "/kata/5235c913397cbf2508000048",
   "kata": "Calculator",
-  "code": "using System;\nusing System.Data;\n\npublic class Evaluator\n{\n    public double Evaluate(string expression) =\u003e\n    Math.Round(\n      Convert.ToDouble(\n        new DataTable()\n        .Compute($\"{expression}\", \"\")\n      ), 6\n    );\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Data;\n\npublic class Evaluator\n{\n    public double Evaluate(string expression) =\u003e\n    Math.Round(\n      Convert.ToDouble(\n        new DataTable()\n        .Compute($\"{expression}\", \"\")\n      ), 6\n    );\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/54598d1fcbae2ae05200112c",
   "kata": "Enumerable Magic #1 - True for All?",
-  "code": "using System;\n\npublic class Kata\n{\n  public static bool All(int[] arr, Func\u003cint, bool\u003e fun)\n  {\n    foreach(var x in arr)\n    {\n      if (!fun(x)) return false;\n    }\n    return true;\n  }\n}"
+  "solution": [
+   {
+    "code": "using System;\n\npublic class Kata\n{\n  public static bool All(int[] arr, Func\u003cint, bool\u003e fun)\n  {\n    foreach(var x in arr)\n    {\n      if (!fun(x)) return false;\n    }\n    return true;\n  }\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/559ac78160f0be07c200005a",
   "kata": "Name Shuffler",
-  "code": "using System;\nusing System.Linq;\n\npublic class Kata\n{   \n  public static string NameShuffler(string str) =\u003e\n    String.Join(\" \", str.Split().Reverse());\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Linq;\n\npublic class Kata\n{   \n  public static string NameShuffler(string str) =\u003e\n    String.Join(\" \", str.Split().Reverse());\n}"
+   }
+  ]
  },
  {
   "kyu": "7 kyu",
   "kataLink": "/kata/54ff0d1f355cfd20e60001fc",
   "kata": "Factorial",
-  "code": "using System;\nusing System.Linq;\n\npublic static class Kata\n{\n  public static int Factorial(int n)\n  {\n    if (n \u003c 0 || n \u003e 12) throw new ArgumentOutOfRangeException();\n    return Enumerable.Range(1, n).Aggregate(1, (total, next) =\u003e total *= next);\n  }\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Linq;\n\npublic static class Kata\n{\n  public static int Factorial(int n)\n  {\n    if (n \u003c 0 || n \u003e 12) throw new ArgumentOutOfRangeException();\n    return Enumerable.Range(1, n).Aggregate(1, (total, next) =\u003e total *= next);\n  }\n}"
+   }
+  ]
  },
  {
   "kyu": "6 kyu",
   "kataLink": "/kata/5274e122fc75c0943d000148",
   "kata": "Grouped by commas",
-  "code": "using System;\nusing System.Linq;\npublic static class Kata\n{\n  public static string GroupByCommas(int n)\n  {\n    var reverse = String.Concat(n.ToString().Reverse());\n    var commas = reverse.Select((d, i) =\u003e (i) % 3 == 0 \u0026\u0026 i != 0 ? $\"{d},\" : $\"{d}\");\n    return String.Concat(commas.Reverse());\n  }\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Linq;\npublic static class Kata\n{\n  public static string GroupByCommas(int n)\n  {\n    var reverse = String.Concat(n.ToString().Reverse());\n    var commas = reverse.Select((d, i) =\u003e (i) % 3 == 0 \u0026\u0026 i != 0 ? $\"{d},\" : $\"{d}\");\n    return String.Concat(commas.Reverse());\n  }\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/5a2fd38b55519ed98f0000ce",
   "kata": "Multiplication table for number",
-  "code": "function multiTable(number) {\n  let table = \"\";\n  for(let i = 1; i \u003c= 10; i++){\n    table += `${i} * ${number} = ${i * number}\\n`;\n  }\n  return table.trim();\n}"
+  "solution": [
+   {
+    "code": "function multiTable(number) {\n  let table = \"\";\n  for(let i = 1; i \u003c= 10; i++){\n    table += `${i} * ${number} = ${i * number}\\n`;\n  }\n  return table.trim();\n}"
+   }
+  ]
  },
  {
   "kyu": "4 kyu",
   "kataLink": "/kata/521c2db8ddc89b9b7a0000c1",
   "kata": "Snail",
-  "code": "using System;\nusing System.Collections.Generic;\n\npublic class SnailSolution\n{\n   public static int[] Snail(int[][] array)\n   {\n       var solution = new List\u003cint\u003e();\n     if (array[0].Length == 0) return new int[0];\n     var rowBegin = 0;\n     var columnBegin = 0;\n     var rowEnd = array.Length - 1;\n     var columnEnd = array.Length - 1;\n     \n     while(rowBegin \u003c= rowEnd \u0026\u0026 columnBegin \u003c= columnEnd)\n     {\n       for(var i = columnBegin; i \u003c= columnEnd; i++){\n         solution.Add(array[rowBegin][i]);\n      }\n      rowBegin++;\n       \n      for(var i = rowBegin; i \u003c= rowEnd; i++){\n          solution.Add(array[i][columnEnd]);\n      }\n      columnEnd--;\n       \n\n         for(var i = columnEnd; i \u003e= columnBegin; i--){\n            solution.Add(array[rowEnd][i]);\n         }      \n      \n      rowEnd--;\n       \n\n          for(var i = rowEnd; i\u003e= rowBegin; i--){\n             solution.Add(array[i][columnBegin]);\n          }          \n      \n      columnBegin++;\n       \n       }\n     return solution.ToArray();\n   }\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Collections.Generic;\n\npublic class SnailSolution\n{\n   public static int[] Snail(int[][] array)\n   {\n       var solution = new List\u003cint\u003e();\n     if (array[0].Length == 0) return new int[0];\n     var rowBegin = 0;\n     var columnBegin = 0;\n     var rowEnd = array.Length - 1;\n     var columnEnd = array.Length - 1;\n     \n     while(rowBegin \u003c= rowEnd \u0026\u0026 columnBegin \u003c= columnEnd)\n     {\n       for(var i = columnBegin; i \u003c= columnEnd; i++){\n         solution.Add(array[rowBegin][i]);\n      }\n      rowBegin++;\n       \n      for(var i = rowBegin; i \u003c= rowEnd; i++){\n          solution.Add(array[i][columnEnd]);\n      }\n      columnEnd--;\n       \n\n         for(var i = columnEnd; i \u003e= columnBegin; i--){\n            solution.Add(array[rowEnd][i]);\n         }      \n      \n      rowEnd--;\n       \n\n          for(var i = rowEnd; i\u003e= rowBegin; i--){\n             solution.Add(array[i][columnBegin]);\n          }          \n      \n      columnBegin++;\n       \n       }\n     return solution.ToArray();\n   }\n}"
+   }
+  ]
  },
  {
   "kyu": "7 kyu",
   "kataLink": "/kata/5390bac347d09b7da40006f6",
   "kata": "Jaden Casing Strings",
-  "code": "using System;\nusing System.Collections.Generic;\nusing System.Linq;\npublic static class JadenCase\n{\n  public static string ToJadenCase(this string phrase)\n  {\n    var sentence = phrase.Split(\" \");\n    var jadenSentence = sentence.Select(word =\u003e Jadenify(word));\n//     foreach (var word in sentence)\n//     {\n//       jadenSentence += word[0].ToString().ToUpper() + word.Substring(1) + \" \";\n//     }\n    return String.Join(\" \", jadenSentence);\n  }\n  private static string Jadenify(string word) =\u003e\n    word[0].ToString().ToUpper() + word.Substring(1);\n}using System;\nusing System.Linq;\n\npublic static class JadenCase\n{\n  public static string ToJadenCase(this string phrase)\n  {\n    return string.Join(\" \", phrase.Split().Select(word =\u003e TitleCase(word)));\n  }\n  \n  private static string TitleCase(string word) =\u003e word[0].ToString().ToUpper() + word.Substring(1);\n}using System;\nusing System.Collections.Generic;\npublic static class JadenCase\n{\n  public static string ToJadenCase(this string phrase)\n  {\n    var JadenCasedString = new List\u003cstring\u003e();\n    foreach (var word in phrase.Split())\n      {\n        JadenCasedString.Add(word.Substring(0, 1).ToUpper() + word.Substring(1, word.Length-1));\n      }\n    \n    return String.Join(\" \", JadenCasedString);\n  }\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Collections.Generic;\nusing System.Linq;\npublic static class JadenCase\n{\n  public static string ToJadenCase(this string phrase)\n  {\n    var sentence = phrase.Split(\" \");\n    var jadenSentence = sentence.Select(word =\u003e Jadenify(word));\n//     foreach (var word in sentence)\n//     {\n//       jadenSentence += word[0].ToString().ToUpper() + word.Substring(1) + \" \";\n//     }\n    return String.Join(\" \", jadenSentence);\n  }\n  private static string Jadenify(string word) =\u003e\n    word[0].ToString().ToUpper() + word.Substring(1);\n}using System;\nusing System.Linq;\n\npublic static class JadenCase\n{\n  public static string ToJadenCase(this string phrase)\n  {\n    return string.Join(\" \", phrase.Split().Select(word =\u003e TitleCase(word)));\n  }\n  \n  private static string TitleCase(string word) =\u003e word[0].ToString().ToUpper() + word.Substring(1);\n}using System;\nusing System.Collections.Generic;\npublic static class JadenCase\n{\n  public static string ToJadenCase(this string phrase)\n  {\n    var JadenCasedString = new List\u003cstring\u003e();\n    foreach (var word in phrase.Split())\n      {\n        JadenCasedString.Add(word.Substring(0, 1).ToUpper() + word.Substring(1, word.Length-1));\n      }\n    \n    return String.Join(\" \", JadenCasedString);\n  }\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/5513795bd3fafb56c200049e",
   "kata": "Count by X",
-  "code": "using System;\nusing System.Linq;\n\npublic static class Kata\n{\n  public static int[] CountBy(int x, int n) =\u003e\n    Enumerable.Range(1, n).Select(number =\u003e number * x).ToArray();\n\n}using System;\nusing System.Linq;\n\npublic static class Kata\n{\n  public static int[] CountBy(int x, int n)\n  {\n    var arr = Enumerable.Range(x, x*n + 1);\n    \n    return arr.Where(number =\u003e number % x == 0).Take(n).ToArray();\n  }\n}"
+  "solution": [
+   {
+    "code": "using System;\nusing System.Linq;\n\npublic static class Kata\n{\n  public static int[] CountBy(int x, int n) =\u003e\n    Enumerable.Range(1, n).Select(number =\u003e number * x).ToArray();\n\n}using System;\nusing System.Linq;\n\npublic static class Kata\n{\n  public static int[] CountBy(int x, int n)\n  {\n    var arr = Enumerable.Range(x, x*n + 1);\n    \n    return arr.Where(number =\u003e number % x == 0).Take(n).ToArray();\n  }\n}"
+   }
+  ]
  },
  {
   "kyu": "8 kyu",
   "kataLink": "/kata/572b6b2772a38bc1e700007a",
   "kata": "ASCII Total",
-  "code": "using System.Linq;\npublic class Kata\n{\n  public static int UniTotal(string str)\n  {\n    return str.Select(c =\u003e (int)c).Sum();\n  }\n}"
+  "solution": [
+   {
+    "code": "using System.Linq;\npublic class Kata\n{\n  public static int UniTotal(string str)\n  {\n    return str.Select(c =\u003e (int)c).Sum();\n  }\n}"
+   }
+  ]
  }
 ]

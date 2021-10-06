@@ -11,11 +11,15 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
+type Solution struct {
+	Code string `json:"code"`
+}
+
 type Kata struct {
-	Kyu       string `json:"kyu"`
-	KataLink  string `json:"kataLink"`
-	KataTitle string `json:"kata"`
-	Code      string `json:"code"`
+	Kyu          string     `json:"kyu"`
+	KataLink     string     `json:"kataLink"`
+	KataTitle    string     `json:"kata"`
+	KataSolution []Solution `json:"solution"`
 }
 
 func main() {
@@ -39,11 +43,19 @@ func main() {
 		kataLink := e.ChildAttr("a", "href")
 		kyu := e.ChildText(".inner-small-hex")
 
+		allSolutions := make([]Solution, 0)
+
+		solution := Solution{
+			Code: code,
+		}
+
+		allSolutions = append(allSolutions, solution)
+
 		kata := Kata{
-			Code:      code,
-			Kyu:       kyu,
-			KataLink:  kataLink,
-			KataTitle: kataTitle,
+			Kyu:          kyu,
+			KataLink:     kataLink,
+			KataTitle:    kataTitle,
+			KataSolution: allSolutions,
 		}
 
 		allKatas = append(allKatas, kata)
