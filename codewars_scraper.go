@@ -12,6 +12,7 @@ import (
 )
 
 type Solution struct {
+	Kyu  string `json:"kyu"`
 	Code string `json:"code"`
 }
 
@@ -32,9 +33,11 @@ func main() {
 
 	collector.OnHTML(".list-item-solutions", func(e *colly.HTMLElement) {
 		code := e.ChildText(".mb-5px")
+		kyu := e.ChildText(".inner-small-hex")
 
 		solution := Solution{
 			Code: code,
+			Kyu:  kyu,
 		}
 
 		allSolutions = append(allSolutions, solution)
