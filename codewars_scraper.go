@@ -11,15 +11,12 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
-type Solution struct {
-	Code string `json:"code"`
-}
-
 type Kata struct {
-	Kyu          string     `json:"kyu"`
-	KataLink     string     `json:"kataLink"`
-	KataTitle    string     `json:"kata"`
-	KataSolution []Solution `json:"solution"`
+	Kyu             string   `json:"kyu"`
+	KataLink        string   `json:"kataLink"`
+	KataTitle       string   `json:"kata"`
+	LanguagesSolved []string `json:"languages"`
+	Solutions       []string `json:"solutions"`
 }
 
 func main() {
@@ -38,24 +35,34 @@ func main() {
 	collector.SetCookies("https://www.codewars.com/users/sign_in", cookies)
 
 	collector.OnHTML(".list-item-solutions", func(e *colly.HTMLElement) {
-		code := e.ChildText(".mb-5px")
 		kataTitle := e.ChildText(".item-title a")
 		kataLink := e.ChildAttr("a", "href")
 		kyu := e.ChildText(".inner-small-hex")
 
-		allSolutions := make([]Solution, 0)
+		allSolutions := make([]string, 0)
+		e.ForEach("code", func(_ int, cd *colly.HTMLElement) {
+			solution := cd.Text
+			if solution == "" {
+				return
+			}
+			allSolutions = append(allSolutions, solution)
+		})
 
-		solution := Solution{
-			Code: code,
-		}
-
-		allSolutions = append(allSolutions, solution)
+		allLanguages := make([]string, 0)
+		e.ForEach("h6", func(_ int, l *colly.HTMLElement) {
+			language := l.Text
+			if language == "" {
+				return
+			}
+			allLanguages = append(allLanguages, language)
+		})
 
 		kata := Kata{
-			Kyu:          kyu,
-			KataLink:     kataLink,
-			KataTitle:    kataTitle,
-			KataSolution: allSolutions,
+			Kyu:             kyu,
+			KataLink:        kataLink,
+			KataTitle:       kataTitle,
+			LanguagesSolved: allLanguages,
+			Solutions:       allSolutions,
 		}
 
 		allKatas = append(allKatas, kata)
