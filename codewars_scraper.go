@@ -11,15 +11,15 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
-type Solution struct {
-	Kyu      string `json:"kyu"`
-	KataLink string `json:"kataLink"`
-	Kata     string `json:"kata"`
-	Code     string `json:"code"`
+type Kata struct {
+	Kyu       string `json:"kyu"`
+	KataLink  string `json:"kataLink"`
+	KataTitle string `json:"kata"`
+	Code      string `json:"code"`
 }
 
 func main() {
-	allSolutions := make([]Solution, 0)
+	allKatas := make([]Kata, 0)
 
 	collector := colly.NewCollector()
 
@@ -35,18 +35,18 @@ func main() {
 
 	collector.OnHTML(".list-item-solutions", func(e *colly.HTMLElement) {
 		code := e.ChildText(".mb-5px")
-		kata := e.ChildText(".item-title a")
+		kataTitle := e.ChildText(".item-title a")
 		kataLink := e.ChildAttr("a", "href")
 		kyu := e.ChildText(".inner-small-hex")
 
-		solution := Solution{
-			Code:     code,
-			Kyu:      kyu,
-			KataLink: kataLink,
-			Kata:     kata,
+		kata := Kata{
+			Code:      code,
+			Kyu:       kyu,
+			KataLink:  kataLink,
+			KataTitle: kataTitle,
 		}
 
-		allSolutions = append(allSolutions, solution)
+		allKatas = append(allKatas, kata)
 	})
 
 	collector.OnRequest(func(request *colly.Request) {
@@ -55,10 +55,10 @@ func main() {
 
 	collector.Visit("https://www.codewars.com/users/yzAlvin/completed_solutions")
 
-	writeJSON(allSolutions)
+	writeJSON(allKatas)
 }
 
-func writeJSON(data []Solution) {
+func writeJSON(data []Kata) {
 	file, err := json.MarshalIndent(data, "", " ")
 
 	if err != nil {
