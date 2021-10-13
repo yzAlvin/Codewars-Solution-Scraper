@@ -98,22 +98,22 @@ func main() {
 
 	collector.OnRequest(func(request *colly.Request) {
 		request.Headers.Set("x-requested-with", "XMLHttpRequest")
-		fmt.Println("Visiting", request.URL.String())
 	})
 
-	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=9", username)
+	page := 2
+	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=%d", username, page)
+	fmt.Println("Visiting ", url)
 	collector.Visit(url)
-
-	writeJSON(allKatas)
+	writeJSON(allKatas, page)
 }
 
-func writeJSON(data []Kata) {
+func writeJSON(data []Kata, page int) {
 	file, err := json.MarshalIndent(data, "", " ")
 
 	if err != nil {
 		log.Println("Unable to create json file")
 		return
 	}
-
-	ioutil.WriteFile("codewars_solutions.json", file, 0644)
+	filepath := fmt.Sprintf("codewars_solutions_%d.json", page)
+	ioutil.WriteFile(filepath, file, 0644)
 }
