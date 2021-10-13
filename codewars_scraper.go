@@ -20,9 +20,16 @@ type Kata struct {
 	Solutions       []string `json:"solutions"`
 }
 
+type Config struct {
+	username   string
+	session_id string
+	pages      int
+}
+
 func main() {
+	config := configureScraper()
 	var wg sync.WaitGroup
-	threads := 10
+	threads := config.pages
 	wg.Add(threads)
 
 	fmt.Println("Begin scraping solutions...")
@@ -30,7 +37,7 @@ func main() {
 	for page := 1; page <= threads; page++ {
 		go func(page int) {
 			defer wg.Done()
-			writeJSON(scrapeSite(page))
+			writeJSON(scrapeSite(config, page), page)
 			fmt.Printf("Scraping page %d\n", page)
 		}(page)
 	}
@@ -39,7 +46,7 @@ func main() {
 	fmt.Println("Finished scraping")
 }
 
-func scrapeSite(page int) []Kata {
+func configureScraper() Config {
 	viper.SetConfigName("config") // name of config file (without extension)
 	viper.SetConfigType("yaml")   // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath(".")      // optionally look for config in the working directory
@@ -53,6 +60,14 @@ func scrapeSite(page int) []Kata {
 
 	username := viper.GetString("username")
 	session_id := viper.GetString("session_id")
+	pages := viper.GetInt("pages")
+
+	config := Config{username, session_id, pages}
+
+	return config
+}
+
+func scrapeSite(config Config, page int) []Kata {
 
 	allKatas := make([]Kata, 0)
 
@@ -60,7 +75,7 @@ func scrapeSite(page int) []Kata {
 
 	cookie := &http.Cookie{
 		Name:  "_session_id",
-		Value: session_id,
+		Value: config.session_id,
 	}
 
 	cookies := make([]*http.Cookie, 0)
@@ -106,20 +121,20 @@ func scrapeSite(page int) []Kata {
 		request.Headers.Set("x-requested-with", "XMLHttpRequest")
 	})
 
-	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=%d", username, page)
+	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=%d", config.username, page)
 	fmt.Println("Visiting ", url)
 	collector.Visit(url)
 
 	return allKatas
 }
 
-func writeJSON(data []Kata) {
+func writeJSON(data []Kata, page int) {
 	file, err := json.MarshalIndent(data, "", " ")
 	if err != nil {
 		log.Println("Unable to create json file")
 		return
 	}
 
-	filepath := "goroutine_codewars_solutions.json"
+	filepath := fmt.Sprintf("codewars_solutions_%d.json", page)
 	ioutil.WriteFile(filepath, file, 0644)
 }
