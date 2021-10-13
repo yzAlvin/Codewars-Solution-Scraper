@@ -1,5 +1,7 @@
 # Codewars Solution Scraper
 
+Currently the [codewars api](https://dev.codewars.com/#introduction) provides the completed katas, but not the actual solution code you wrote to complete it.
+
 This go program will scrape all your codewars solutions and output them in json file.
 
 The schema of a single kata is 
