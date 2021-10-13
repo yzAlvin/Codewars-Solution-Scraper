@@ -5,8 +5,8 @@ This go program will scrape all your codewars solutions and output them in json 
 The schema of a single kata is 
 ```javascript
 {
-	"Kyu":				"string",
-	"KataLink":			"string",
+	"Kyu":			"string",
+	"KataLink":		"string",
 	"KataTitle":		"string",
 	"LanguagesSolved":	["string"],
 	"Solutions":		["string"]
@@ -31,12 +31,12 @@ The schema of a single kata is
 - Try to link language with the solution, something like:
 ```javascript
 {
-	"Kyu":			"string",
-	"KataLink":		"string",
+	"Kyu":		"string",
+	"KataLink":	"string",
 	"KataTitle":	"string",
 	"KataSolution":	[{
-						"Language": "string",
-						"Solutions": ["string"]
-					}]
+				"Language": "string",
+				"Solutions": ["string"]
+			}]
 }
 ```
