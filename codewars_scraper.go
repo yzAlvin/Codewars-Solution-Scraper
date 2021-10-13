@@ -83,10 +83,11 @@ func main() {
 	})
 
 	collector.OnRequest(func(request *colly.Request) {
+		request.Headers.Set("x-requested-with", "XMLHttpRequest")
 		fmt.Println("Visiting", request.URL.String())
 	})
 
-	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions", username)
+	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=2", username)
 	collector.Visit(url)
 
 	writeJSON(allKatas)
