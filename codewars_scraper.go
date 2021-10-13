@@ -48,6 +48,20 @@ func main() {
 
 	collector.SetCookies("https://www.codewars.com", cookies)
 
+	end := "<div class=\"p-10px js-infinite-marker\" data-page=\"10\"><h5>Loading more items...</h5></div>"
+
+	collector.OnResponse(func(r *colly.Response) {
+		if string(r.Body) == end {
+			panic("Exit")
+		}
+	})
+
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Finished Scraping")
+		}
+	}()
+
 	collector.OnHTML(".list-item-solutions", func(e *colly.HTMLElement) {
 		kataTitle := e.ChildText(".item-title a")
 		kataLink := e.ChildAttr("a", "href")
@@ -87,7 +101,7 @@ func main() {
 		fmt.Println("Visiting", request.URL.String())
 	})
 
-	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=2", username)
+	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=9", username)
 	collector.Visit(url)
 
 	writeJSON(allKatas)
