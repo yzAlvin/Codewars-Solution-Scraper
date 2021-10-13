@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"sync"
 
 	"github.com/gocolly/colly/v2"
 	"github.com/spf13/viper"
@@ -20,6 +21,25 @@ type Kata struct {
 }
 
 func main() {
+	var wg sync.WaitGroup
+	threads := 10
+	wg.Add(threads)
+
+	fmt.Println("Begin scraping solutions...")
+
+	for page := 1; page <= threads; page++ {
+		go func(page int) {
+			defer wg.Done()
+			writeJSON(scrapeSite(page))
+			fmt.Printf("Scraping page %d\n", page)
+		}(page)
+	}
+
+	wg.Wait()
+	fmt.Println("Finished scraping")
+}
+
+func scrapeSite(page int) []Kata {
 	viper.SetConfigName("config") // name of config file (without extension)
 	viper.SetConfigType("yaml")   // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath(".")      // optionally look for config in the working directory
@@ -47,20 +67,6 @@ func main() {
 	cookies = append(cookies, cookie)
 
 	collector.SetCookies("https://www.codewars.com", cookies)
-
-	end := "<div class=\"p-10px js-infinite-marker\" data-page=\"10\"><h5>Loading more items...</h5></div>"
-
-	collector.OnResponse(func(r *colly.Response) {
-		if string(r.Body) == end {
-			panic("Exit")
-		}
-	})
-
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("Finished Scraping")
-		}
-	}()
 
 	collector.OnHTML(".list-item-solutions", func(e *colly.HTMLElement) {
 		kataTitle := e.ChildText(".item-title a")
@@ -100,20 +106,20 @@ func main() {
 		request.Headers.Set("x-requested-with", "XMLHttpRequest")
 	})
 
-	page := 2
 	url := fmt.Sprintf("https://www.codewars.com/users/%s/completed_solutions?page=%d", username, page)
 	fmt.Println("Visiting ", url)
 	collector.Visit(url)
-	writeJSON(allKatas, page)
+
+	return allKatas
 }
 
-func writeJSON(data []Kata, page int) {
+func writeJSON(data []Kata) {
 	file, err := json.MarshalIndent(data, "", " ")
-
 	if err != nil {
 		log.Println("Unable to create json file")
 		return
 	}
-	filepath := fmt.Sprintf("codewars_solutions_%d.json", page)
+
+	filepath := "goroutine_codewars_solutions.json"
 	ioutil.WriteFile(filepath, file, 0644)
 }
