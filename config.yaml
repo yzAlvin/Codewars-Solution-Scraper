@@ -1,2 +1,3 @@
 session_id: put _session_id cookie here
 username: put codewars username here
+pages: put number of pages to scrape here
